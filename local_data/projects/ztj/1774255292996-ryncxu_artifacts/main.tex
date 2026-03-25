@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{natbib}
+\usepackage{booktabs}
+
+\title{Your Research Title Here}
+\author{Author Name}
+\date{\today}
+
+\newcommand{\LatexStudioIncludeGraphics}[2][]{%
+  \IfFileExists{#2}{%
+    \LatexStudioIncludeGraphics[#1]{#2}%
+  }{%
+    \fbox{%
+      \parbox[c][0.28\textheight][c]{0.75\linewidth}{%
+        \centering Missing image\\
+        \texttt{#2}%
+      }%
+    }%
+  }%
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Your abstract goes here. Briefly describe the problem, method, and results. 
+
+\[
+x^2 + y^2 = 1
+\]
+
+\begin{figure}[htbp]
+  \centering
+  \LatexStudioIncludeGraphics[width=0.75\linewidth]{image-name.png}
+  \caption{Example figure}
+  \label{fig:example}
+\end{figure}
+
+\end{abstract}
+
+\section{Introduction}
+Start your introduction here.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Example table}
+  \begin{tabular}{lcc}
+    \toprule
+    Method & Accuracy & F1 \\
+    \midrule
+    Baseline & 0.82 & 0.80 \\
+    Ours & 0.91 & 0.90 \\
+    \bottomrule
+  \end{tabular}
+  \label{tab:results}
+\end{table}
+
+\section{Methods}
+Describe your methodology.
+
+\subsection{Data Collection}
+How data was gathered.
+
+\section{Results}
+Present your findings.
+
+\section{Conclusion}
+Summarize your work.
+
+\end{document}

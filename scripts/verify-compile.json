@@ -1,0 +1,7 @@
+{
+  "id": "verify-compile",
+  "owner": "guest",
+  "compiler": "xelatex",
+  "content": "\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\nHello\\[x^2+y^2=1\\]\n\\end{document}",
+  "images": []
+}

@@ -7,6 +7,244 @@
 			"command": "npm run dev -- --port 8080 --host",
 			"isBackground": true,
 			"group": "build"
+		},
+		{
+			"label": "Build Latex-Agent",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build Latex-Agent Verify",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Verify LaTeX Compile API",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$body = @'\n{\n  \"id\": \"verify-compile\",\n  \"owner\": \"guest\",\n  \"compiler\": \"xelatex\",\n  \"content\": \"\\\\documentclass{article}\\n\\\\usepackage{amsmath}\\n\\\\begin{document}\\nHello\\\\[x^2+y^2=1\\\\]\\n\\\\end{document}\",\n  \"images\": []\n}\n'@; $resp = Invoke-RestMethod -Uri 'http://localhost:8080/api/projects/compile' -Method Post -ContentType 'application/json' -Body $body; [PSCustomObject]@{ ok = $resp.ok; compiler = $resp.compiler; pdfLength = $resp.pdfBase64.Length } | ConvertTo-Json -Depth 3"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Run Verify Compile Script",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"scripts/verify-compile.ps1"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Run Verify Compile Script Detailed",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"scripts/verify-compile.ps1"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Curl Verify Compile API",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-sS",
+				"-X",
+				"POST",
+				"http://localhost:8080/api/projects/compile",
+				"-H",
+				"Content-Type: application/json",
+				"--data-binary",
+				"@scripts/verify-compile.json"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Check Dev Server 8080",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"http://localhost:8080"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Vite Dev Server npmcmd",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"dev",
+				"--",
+				"--port",
+				"8080",
+				"--host"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Curl Verify Compile API After Server",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-sS",
+				"-X",
+				"POST",
+				"http://localhost:8080/api/projects/compile",
+				"-H",
+				"Content-Type: application/json",
+				"--data-binary",
+				"@scripts/verify-compile.json"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build After Restore Settings",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build After AI Settings Restore",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build After Move Upload Button",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Install JSZip",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/c",
+				"npm.cmd install --no-audit --no-fund"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build Full Feature Set",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/c",
+				"npm.cmd run build"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Verify Bib Compile API",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-sS",
+				"-X",
+				"POST",
+				"http://localhost:8081/api/projects/compile",
+				"-H",
+				"Content-Type: application/json",
+				"--data-binary",
+				"@scripts/verify-bib-compile.json"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Hash Existing User Password",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/c",
+				"node -e \"const fs=require('node:fs'); const path='local_data/users/users.json'; const {scryptSync, randomBytes}=require('node:crypto'); const users=JSON.parse(fs.readFileSync(path,'utf8')); for (const user of users){ if(user.password && !user.passwordHash){ const salt=randomBytes(16).toString('hex'); const hash=scryptSync(user.password,salt,64).toString('hex'); user.passwordHash=`scrypt:${salt}:${hash}`; delete user.password; } } fs.writeFileSync(path, JSON.stringify(users,null,2)); console.log('migrated');\""
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Run User Migration",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/c",
+				"node scripts/migrate-users.mjs"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build After Auth Hardening",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/c",
+				"npm.cmd run build"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Build After Remove Review UI",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/c",
+				"npm.cmd run build"
+			],
+			"isBackground": false,
+			"group": "build"
 		}
 	]
 }

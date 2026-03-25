@@ -1,0 +1,13 @@
+{
+  "id": "verify-bib-compile",
+  "owner": "guest",
+  "compiler": "xelatex",
+  "content": "\\documentclass{article}\n\\usepackage{natbib}\n\\begin{document}\nThis is a citation~\\cite{knuth1984}.\n\\bibliographystyle{plain}\n\\bibliography{refs}\n\\end{document}",
+  "images": [],
+  "attachments": [
+    {
+      "name": "refs.bib",
+      "content": "@book{knuth1984, title={The TeXbook}, author={Knuth, Donald E.}, year={1984}, publisher={Addison-Wesley}}"
+    }
+  ]
+}
